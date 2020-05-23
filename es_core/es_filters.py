@@ -1,6 +1,6 @@
 from elasticsearch_dsl.query import Match
 
-from es_core.es_base_search import BaseSearch
+from es_core.es_search import BaseSearch
 from es_core.utils import execute_query
 
 
