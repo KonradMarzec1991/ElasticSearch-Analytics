@@ -36,7 +36,7 @@ def salary_by_bucket_ages():
     qs.aggs.bucket(
         name='salary_by_buckets_dist', agg_type='range',
         field='Age', ranges=create_range_buckets(20, 55, 5)
-    ).metric('sum_salary', 'avg', field='Salary')
+    ).metric('avg_salary', 'avg', field='Salary')
     return qs
 
 
@@ -45,5 +45,16 @@ def salary_by_gender():
     qs = BaseSearch().agg_search()
     qs.aggs.bucket(
         name='salary_by_gender', agg_type='terms', field='Gender'
+    ).metric('avg_salary', 'avg', field='Salary')
+    return qs
+
+
+@execute_aggs
+def salary_by_gender_age_buckets():
+    qs = BaseSearch().agg_search()
+    qs.aggs.bucket(
+        name='salary_by_buckets_dist', agg_type='range',
+        field='Age', ranges=create_range_buckets(20, 55, 5)
+    ).bucket('get_gender', 'terms', field='Gender'
     ).metric('avg_salary', 'avg', field='Salary')
     return qs
