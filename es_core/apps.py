@@ -7,8 +7,4 @@ class EsCoreConfig(AppConfig):
     name = 'es_core'
 
     def ready(self):
-        connections.create_connection(
-            alias='emp',
-            hosts=[settings.ES_HOST]
-        )
-
+        connections.configure(**settings.ES_CONNECTIONS)

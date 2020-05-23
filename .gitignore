@@ -10,3 +10,5 @@ var/
 
 idea/*
 .idea/
+
+db.sqlite3

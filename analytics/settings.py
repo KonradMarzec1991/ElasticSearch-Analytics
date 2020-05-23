@@ -126,5 +126,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-ES_HOST = '127.0.0.1'
+
+ES_HOST = 'localhost'
 ES_PORT = 9200
+
+ES_INDEX = 'employees'
+
+ES_CONNECTIONS = {
+    'default': {
+        'hosts': [{
+            'host': ES_HOST,
+            'port': ES_PORT
+        }]
+    }
+}
