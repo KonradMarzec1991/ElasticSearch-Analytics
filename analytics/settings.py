@@ -126,7 +126,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
 ES_HOST = 'localhost'
 ES_PORT = 9200
 

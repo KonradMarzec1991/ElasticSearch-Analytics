@@ -18,11 +18,8 @@ class BaseSearch:
     def search(self, index='employees'):
         return Search(using=self.es, index=index)
 
-    def agg_search(self, index='employees'):
-        return self.search(using=self.es, index=index).extra(size=0)
-
-
-
+    def agg_search(self):
+        return self.search().extra(size=0)
 
 
 

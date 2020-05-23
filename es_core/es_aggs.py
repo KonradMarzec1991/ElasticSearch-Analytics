@@ -2,11 +2,15 @@
 Basic set statistics
 """
 from es_core.es_search import BaseSearch
-from es_core.utils import execute_aggs
-from .utils import create_range_buckets
+from es_core.utils import (
+    execute_aggs,
+    check_term_field
+)
+from es_core.utils import create_range_buckets
 
 
 @execute_aggs
+@check_term_field
 def term_aggs_by_field(field):
     qs = BaseSearch().agg_search()
     qs.aggs.bucket(
@@ -22,7 +26,7 @@ def salary_by_age():
     qs.aggs.bucket(
         name='agg', agg_type='terms', field='Age', size=50,
         order={'_key': 'asc'}
-    ).metric('salary_by_age', 'avg', field='Salary')
+    ).metric('avg_salary', 'avg', field='Salary')
     return qs
 
 
@@ -32,9 +36,14 @@ def salary_by_bucket_ages():
     qs.aggs.bucket(
         name='salary_by_buckets_dist', agg_type='range',
         field='Age', ranges=create_range_buckets(20, 55, 5)
-    ).metric('salary_by_age', 'avg', field='Salary')
+    ).metric('sum_salary', 'avg', field='Salary')
+    return qs
 
 
-result = salary_by_bucket_ages()
-for item in result['agg']['buckets']:
-    print(item['key'], item['salary_by_age']['value'])
+@execute_aggs
+def salary_by_gender():
+    qs = BaseSearch().agg_search()
+    qs.aggs.bucket(
+        name='salary_by_gender', agg_type='terms', field='Gender'
+    ).metric('avg_salary', 'avg', field='Salary')
+    return qs
