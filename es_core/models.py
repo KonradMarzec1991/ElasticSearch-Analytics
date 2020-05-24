@@ -25,6 +25,9 @@ class Employee(models.Model):
     date_of_joining = models.DateField()
     position = models.CharField(max_length=50)
 
+    class Meta:
+        abstract = True
+
     @property
     def full_name(self):
         return f'{self.first_name} {self.last_name}'

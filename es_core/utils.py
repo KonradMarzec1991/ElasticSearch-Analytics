@@ -22,6 +22,11 @@ def execute_query(func):
 
 
 def execute_aggs(func):
+    """
+    Basic decorator for executing aggregation
+    :param func: search instance
+    :return: dict results
+    """
     def wrapper(*args, **kwargs):
         base_search = func(*args, **kwargs)
         return base_search.execute()['aggregations']
@@ -29,6 +34,11 @@ def execute_aggs(func):
 
 
 def check_term_field(func):
+    """
+    Decorator checks if function arg is in allowed list
+    :param func: decorated function
+    :return: raise Exception if arg is invalid else returns function
+    """
     def wrapper(arg):
         if arg not in allowed:
             raise ArgumentException
@@ -37,6 +47,9 @@ def check_term_field(func):
 
 
 class ArgumentException(Exception):
+    """
+    Exception raised when arg not in allowed list
+    """
     pass
 
 
@@ -59,6 +72,11 @@ def create_range_buckets(start, end, step):
 
 
 def upsert(employee_model):
+    """
+    Creates for employee instance ES-dict and save it
+    :param employee_model: employee instance
+    :return: ES response
+    """
     client = get_client()
     employee_dict = employee_model.as_elasticsearch_dict()
     doc_type = employee_dict.get('_type', '_doc')
@@ -76,5 +94,3 @@ def upsert(employee_model):
         }
     )
     return response
-
-
