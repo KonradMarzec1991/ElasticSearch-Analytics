@@ -1,15 +1,23 @@
 from django.db import models
+
 from .utils import (
     upsert,
     delete_from_es
 )
 
+
 from .es_helpers.es_filters import get_by_id
 
 
 class ElasticSearchManager(models.Manager):
-    def es_get_by_pk(self, pk):
+
+    @staticmethod
+    def es_get_by_pk(pk):
         return get_by_id(pk)[0]['_source']
+
+    @staticmethod
+    def es_get_all():
+        pass
 
 
 class Employee(models.Model):

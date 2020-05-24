@@ -139,3 +139,5 @@ ES_CONNECTIONS = {
         }]
     }
 }
+
+ES_DEFAULT_SIZE = 100

@@ -5,6 +5,7 @@ def transform_filter_names(es_input):
     result = []
     for emp in es_input:
         emp = emp['_source']
+        print(emp)
         result.append(Employee(
             FirstName=emp['FirstName'],
             LastName=emp['LastName'],
