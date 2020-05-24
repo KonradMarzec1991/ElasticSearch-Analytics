@@ -7,10 +7,8 @@ allowed = ['Age', 'Designation', 'Gender', 'MaritalStatus', 'Salary']
 
 
 def execute_query(func):
-    def wrapper(*args, **kwargs):
-        for item in args:
-            print(item)
-        base_search = func(*args, **kwargs)
+    def wrapper(*args):
+        base_search = func(*args)
         return base_search.execute().hits.hits
     return wrapper
 

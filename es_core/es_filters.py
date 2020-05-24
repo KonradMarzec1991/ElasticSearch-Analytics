@@ -11,4 +11,8 @@ def filter_by_fn(first_name):
     return qs.query(q)
 
 
-print(filter_by_fn('ELVA'))
+@execute_query
+def filter_by_ln(last_name):
+    qs = BaseSearch().search()
+    q = Match(LastName=last_name)
+    return qs.query(q)

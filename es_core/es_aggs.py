@@ -56,5 +56,5 @@ def salary_by_gender_age_buckets():
         name='salary_by_buckets_dist', agg_type='range',
         field='Age', ranges=create_range_buckets(20, 55, 5)
     ).bucket('get_gender', 'terms', field='Gender'
-    ).metric('avg_salary', 'avg', field='Salary')
+             ).metric('avg_salary', 'avg', field='Salary')
     return qs
