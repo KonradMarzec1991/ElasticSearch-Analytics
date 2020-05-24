@@ -58,3 +58,16 @@ def salary_by_gender_age_buckets():
     ).bucket('get_gender', 'terms', field='Gender'
              ).metric('avg_salary', 'avg', field='Salary')
     return qs
+
+
+@execute_aggs
+def median_by_gender_age_buckets():
+    qs = BaseSearch().agg_search()
+    qs.aggs.bucket(
+        name='median_by_buckets_dist', agg_type='range',
+        field='Age', ranges=create_range_buckets(20, 55, 5)
+    ).bucket('get_gender', 'terms', field='Gender'
+             ).metric('avg_salary', 'percentiles', field='Salary',
+                      percents=[50, 90]
+                      )
+    return qs
