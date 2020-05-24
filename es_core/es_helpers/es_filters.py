@@ -1,11 +1,17 @@
 from elasticsearch_dsl.query import (
     Match,
     Bool,
-    Range
+    Range, Term
 )
-
 from es_core.es_helpers.es_search import BaseSearch
 from es_core.utils import execute_query
+
+
+@execute_query
+def get_by_id(emp_id):
+    qs = BaseSearch().search()
+    q = Term(id=emp_id)
+    return qs.query(q)
 
 
 @execute_query

@@ -17,16 +17,16 @@ class Employee(models.Model):
         ('M', 'Male')
     )
 
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    address = models.CharField(max_length=150)
-    martial_status = models.CharField(max_length=20, choices=martial_status)
-    gender = models.CharField(max_length=1, choices=gender_status)
-    salary = models.BigIntegerField()
-    age = models.SmallIntegerField()
-    interests = models.TextField()
-    date_of_joining = models.DateField()
-    position = models.CharField(max_length=50)
+    FirstName = models.CharField(max_length=100)
+    LastName = models.CharField(max_length=100)
+    Address = models.CharField(max_length=150)
+    MaritalStatus = models.CharField(max_length=20, choices=martial_status)
+    Gender = models.CharField(max_length=1, choices=gender_status)
+    Salary = models.BigIntegerField()
+    Age = models.SmallIntegerField()
+    Interests = models.TextField()
+    DateOfJoining = models.DateField()
+    Designation = models.CharField(max_length=50)
 
     @property
     def full_name(self):

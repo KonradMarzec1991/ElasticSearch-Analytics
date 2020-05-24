@@ -1,25 +1,20 @@
-from es_core.es_helpers.es_filters import filter_by_fn
 from es_core.models import Employee
 
 
-print(filter_by_fn('ELVA')[0]['_source'])
-print(filter_by_fn('ELVA')[0])
-
-
 def transform_filter_names(es_input):
-    source, result = es_input[0]['_source'], []
-    for emp in source:
+    result = []
+    for emp in es_input:
+        emp = emp['_source']
         result.append(Employee(
-            first_name=emp['FirstName'],
-            last_name=emp['LastName'],
-            address=emp['Address'],
-            martial_status=emp['MaritalStatus'],
-            gender=emp['Gender'],
-            salary=emp['Salary'],
-            age=emp['Age'],
-            interests=emp['Interests'],
-            date_of_joining=emp['DateOfJoining'],
-            position=emp['Designation'],
+            FirstName=emp['FirstName'],
+            LastName=emp['LastName'],
+            Address=emp['Address'],
+            MaritalStatus=emp['MaritalStatus'],
+            Gender=emp['Gender'],
+            Salary=emp['Salary'],
+            Age=emp['Age'],
+            Interests=emp['Interests'],
+            DateOfJoining=emp['DateOfJoining'],
+            Designation=emp['Designation'],
         ))
     return result
-
