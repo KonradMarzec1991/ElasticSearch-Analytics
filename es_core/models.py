@@ -2,7 +2,6 @@ from django.db import models
 
 
 class Employee(models.Model):
-
     martial_status = (
         ('married', 'Married'),
         ('unmarried', 'Unmarried')
@@ -29,6 +28,20 @@ class Employee(models.Model):
         return f'{self.first_name} {self.last_name}'
 
     def __str__(self):
-        return self.first_name
+        return self.full_name
 
-
+    def as_elasticsearch_dict(self):
+        return {
+            '_id': self.id,
+            '_type': 'doc',
+            'FirstName': self.first_name,
+            'LastName': self.last_name,
+            'Designation': self.position,
+            'Salary': self.salary,
+            'DateOfJoining': self.date_of_joining,
+            'Address': self.address,
+            'Gender': self.gender_status,
+            'Age': self.age,
+            'MaritalStatus': self.martial_status,
+            'Interests': self.interests
+        }

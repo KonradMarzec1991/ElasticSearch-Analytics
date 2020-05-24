@@ -10,6 +10,9 @@ from elasticsearch_dsl import (
 
 
 class BaseSearch:
+    """
+    Base search class for setting searches for different purposes
+    """
     def __init__(self):
         self.es = connections.connections.create_connection(
             hosts=['localhost']
