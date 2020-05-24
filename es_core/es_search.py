@@ -2,11 +2,26 @@
 Basic set-up ElasticSearch search
 """
 
+from django.conf import settings
 
+from elasticsearch import Elasticsearch
 from elasticsearch_dsl import (
     connections,
     Search
 )
+
+
+def get_client():
+    """
+    Basic ElasticSearch connection
+    :return: connection client instance
+    """
+    return Elasticsearch(
+        hosts={
+            'host': settings.ES_HOST,
+            'port': settings.ES_PORT
+        }
+    )
 
 
 class BaseSearch:
@@ -22,6 +37,10 @@ class BaseSearch:
         return Search(using=self.es, index=index)
 
     def agg_search(self):
+        """
+        Search instance with addtional size equals 0
+        :return: setup search instance
+        """
         return self.search().extra(size=0)
 
 

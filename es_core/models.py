@@ -1,7 +1,9 @@
 from django.db import models
+from es_core.es_search import get_client
 
 
 class Employee(models.Model):
+
     martial_status = (
         ('married', 'Married'),
         ('unmarried', 'Unmarried')
@@ -45,3 +47,8 @@ class Employee(models.Model):
             'MaritalStatus': self.martial_status,
             'Interests': self.interests
         }
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        super().save(force_insert=False, force_update=False, using=None,
+                     update_fields=None)

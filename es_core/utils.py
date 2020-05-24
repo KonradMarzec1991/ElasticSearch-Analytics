@@ -7,6 +7,11 @@ allowed = ['Age', 'Designation', 'Gender', 'MaritalStatus', 'Salary']
 
 
 def execute_query(func):
+    """
+    Basic decorator for executing query
+    :param func: search instance
+    :return: dict results
+    """
     def wrapper(*args):
         base_search = func(*args)
         return base_search.execute().hits.hits
@@ -41,3 +46,6 @@ def create_range_buckets(start, end, step):
     ranges.insert(0, {'to': start})
     ranges.append({'from': end})
     return ranges
+
+
+
