@@ -1,5 +1,5 @@
 from django.db import models
-from es_core.es_search import get_client
+from .utils import upsert
 
 
 class Employee(models.Model):
@@ -52,3 +52,4 @@ class Employee(models.Model):
              update_fields=None):
         super().save(force_insert=False, force_update=False, using=None,
                      update_fields=None)
+        upsert(self)

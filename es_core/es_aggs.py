@@ -28,7 +28,7 @@ def term_aggs_by_field(field: str) -> list:
 
 
 @execute_aggs
-def salary_by_age():
+def salary_by_age() -> dict:
     """
     Metric ElasticSearch aggregation for showing salary by age (integer)
     :return: query results for salary by age

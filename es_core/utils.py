@@ -2,6 +2,9 @@
 Helper functions for filters and aggregations
 """
 
+from django.conf import settings
+from .es_search import get_client
+
 
 allowed = ['Age', 'Designation', 'Gender', 'MaritalStatus', 'Salary']
 
@@ -38,6 +41,13 @@ class ArgumentException(Exception):
 
 
 def create_range_buckets(start, end, step):
+    """
+    Simple helper function for creating ES-able range buckets
+    :param start: start of range
+    :param end: end of range
+    :param step: length of bucket
+    :return: list with given ranges
+    """
     ranges = []
     for v in range(start, end, step):
         ranges.append(
@@ -47,5 +57,24 @@ def create_range_buckets(start, end, step):
     ranges.append({'from': end})
     return ranges
 
+
+def upsert(employee_model):
+    client = get_client()
+    employee_dict = employee_model.as_elasticsearch_dict()
+    doc_type = employee_dict.get('_type', '_doc')
+
+    del employee_dict['_id']
+    del employee_model['_type']
+
+    response = client.update(
+        index=settings.ES_INDEX,
+        doc_type=doc_type,
+        id=employee_model.id,
+        body={
+            'doc': employee_dict,
+            'doc_as_upsert': True
+        }
+    )
+    return response
 
 
