@@ -1,5 +1,8 @@
 from django.db import models
-from .utils import upsert
+from .utils import (
+    upsert,
+    delete_from_es
+)
 
 
 class Employee(models.Model):
@@ -33,6 +36,10 @@ class Employee(models.Model):
         return self.full_name
 
     def as_elasticsearch_dict(self):
+        """
+        Creates ElasticSearch dict ready to use
+        :return: dictionary with `class` attrs
+        """
         return {
             'FirstName': self.first_name,
             'LastName': self.last_name,
@@ -51,3 +58,7 @@ class Employee(models.Model):
         super().save(force_insert=False, force_update=False, using=None,
                      update_fields=None)
         upsert(self)
+
+    def delete(self, using=None, keep_parents=False):
+        delete_from_es(self.id)
+        super().delete(using=None, keep_parents=False)

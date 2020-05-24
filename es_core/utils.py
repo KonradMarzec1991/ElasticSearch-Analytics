@@ -90,3 +90,18 @@ def upsert(employee_model):
         }
     )
     return response
+
+
+def delete_from_es(employee_id):
+    """
+    Deletes employee instance from ElasticSearch
+    :param employee_id: employee id
+    :return: ES delete response
+    """
+    client = get_client()
+    response = client.delete(
+        index=settings.ES_INDEX,
+        doc_type='_doc',
+        id=employee_id
+    )
+    return response
