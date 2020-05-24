@@ -4,33 +4,42 @@ from .utils import (
     delete_from_es
 )
 
+from .es_helpers.es_filters import get_by_id
+
+
+class ElasticSearchManager(models.Manager):
+    def es_get_by_pk(self, pk):
+        return get_by_id(pk)[0]['_source']
+
 
 class Employee(models.Model):
 
     martial_status = (
-        ('married', 'Married'),
-        ('unmarried', 'Unmarried')
+        ('Married', 'Married'),
+        ('Unmarried', 'Unmarried')
     )
 
     gender_status = (
-        ('F', 'Female'),
-        ('M', 'Male')
+        ('Female', 'Female'),
+        ('Male', 'Male')
     )
 
     FirstName = models.CharField(max_length=100)
     LastName = models.CharField(max_length=100)
     Address = models.CharField(max_length=150)
     MaritalStatus = models.CharField(max_length=20, choices=martial_status)
-    Gender = models.CharField(max_length=1, choices=gender_status)
+    Gender = models.CharField(max_length=10, choices=gender_status)
     Salary = models.BigIntegerField()
     Age = models.SmallIntegerField()
     Interests = models.TextField()
     DateOfJoining = models.DateField()
     Designation = models.CharField(max_length=50)
 
+    es_object = ElasticSearchManager()
+
     @property
     def full_name(self):
-        return f'{self.first_name} {self.last_name}'
+        return f'{self.FirstName} {self.LastName}'
 
     def __str__(self):
         return self.full_name
@@ -41,16 +50,17 @@ class Employee(models.Model):
         :return: dictionary with `class` attrs
         """
         return {
-            'FirstName': self.first_name,
-            'LastName': self.last_name,
-            'Designation': self.position,
-            'Salary': self.salary,
-            'DateOfJoining': self.date_of_joining,
-            'Address': self.address,
-            'Gender': self.gender_status,
-            'Age': self.age,
-            'MaritalStatus': self.martial_status,
-            'Interests': self.interests
+            'id': self.id,
+            'FirstName': self.FirstName,
+            'LastName': self.LastName,
+            'Designation': self.Designation,
+            'Salary': self.Salary,
+            'DateOfJoining': self.DateOfJoining,
+            'Address': self.Address,
+            'Gender': self.Gender,
+            'Age': self.Age,
+            'MaritalStatus': self.MaritalStatus,
+            'Interests': self.Interests
         }
 
     def save(self, force_insert=False, force_update=False, using=None,

@@ -1,7 +1,8 @@
 from elasticsearch_dsl.query import (
     Match,
     Bool,
-    Range, Term
+    Range,
+    Term
 )
 from es_core.es_helpers.es_search import BaseSearch
 from es_core.utils import execute_query
@@ -10,7 +11,7 @@ from es_core.utils import execute_query
 @execute_query
 def get_by_id(emp_id):
     qs = BaseSearch().search()
-    q = Term(id=emp_id)
+    q = Term(_id=emp_id)
     return qs.query(q)
 
 
