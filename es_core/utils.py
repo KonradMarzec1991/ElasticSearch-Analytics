@@ -79,14 +79,10 @@ def upsert(employee_model):
     """
     client = get_client()
     employee_dict = employee_model.as_elasticsearch_dict()
-    doc_type = employee_dict.get('_type', '_doc')
-
-    del employee_dict['_id']
-    del employee_model['_type']
 
     response = client.update(
         index=settings.ES_INDEX,
-        doc_type=doc_type,
+        doc_type='_doc',
         id=employee_model.id,
         body={
             'doc': employee_dict,

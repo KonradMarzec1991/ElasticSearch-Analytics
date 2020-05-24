@@ -25,9 +25,6 @@ class Employee(models.Model):
     date_of_joining = models.DateField()
     position = models.CharField(max_length=50)
 
-    class Meta:
-        abstract = True
-
     @property
     def full_name(self):
         return f'{self.first_name} {self.last_name}'
@@ -37,8 +34,6 @@ class Employee(models.Model):
 
     def as_elasticsearch_dict(self):
         return {
-            '_id': self.id,
-            '_type': 'doc',
             'FirstName': self.first_name,
             'LastName': self.last_name,
             'Designation': self.position,

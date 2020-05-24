@@ -17,10 +17,10 @@ def get_client():
     :return: connection client instance
     """
     return Elasticsearch(
-        hosts={
+        hosts=[{
             'host': settings.ES_HOST,
-            'port': settings.ES_PORT
-        }
+            'port': settings.ES_PORT,
+        }]
     )
 
 
