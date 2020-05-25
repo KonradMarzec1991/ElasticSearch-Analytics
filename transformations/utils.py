@@ -5,7 +5,7 @@ Helper class and functions for transformations
 
 class LazyInit:
     """
-    Class LazyInt generalize initialization of data structures
+    Class LazyInt generalizes initialization of data structures
     """
     _fields = []
 
