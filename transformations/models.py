@@ -1,20 +1,11 @@
 from .transforms import transform_filter_names
 from es_core.es_filters import match_all, get_by_id
+from .utils import LazyInit
 
 
-class Employee:
-    def __init__(self, FirstName, LastName, Address, MaritalStatus, Gender,
-                 Salary, Age, Interests, DateOfJoining, Designation):
-        self.FirstName = FirstName
-        self.LastName = LastName
-        self.Address = Address
-        self.MaritalStatus = MaritalStatus
-        self.Gender = Gender
-        self.Salary = Salary
-        self.Age = Age
-        self.Interests = Interests
-        self.DateOfJoining = DateOfJoining
-        self.Designation = Designation
+class Employee(LazyInit):
+    _fields = ['FirstName', 'LastName', 'Address', 'MaritalStatus', 'Gender',
+               'Salary', 'Age', 'Interests', 'DateOfJoining', 'Designation']
 
     @property
     def full_name(self):
