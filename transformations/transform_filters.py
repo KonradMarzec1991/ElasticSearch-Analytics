@@ -1,10 +1,9 @@
 def transform_filter_names(es_input):
-    from transformations.models import Employee2
+    from transformations.models import Employee
     result = []
     for emp in es_input:
         emp = emp['_source']
-        print(emp)
-        result.append(Employee2(
+        result.append(Employee(
             FirstName=emp['FirstName'],
             LastName=emp['LastName'],
             Address=emp['Address'],

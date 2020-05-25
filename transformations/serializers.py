@@ -1,14 +1,7 @@
 from rest_framework import serializers
-from es_core.models import Employee
 
 
-class EmployeeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Employee
-        fields = '__all__'
-
-
-class Employee2Serializer(serializers.Serializer):
+class EmployeeSerializer(serializers.Serializer):
     FirstName = serializers.CharField(max_length=100)
     LastName = serializers.CharField(max_length=100)
     Address = serializers.CharField(max_length=100)

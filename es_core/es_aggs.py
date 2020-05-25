@@ -3,7 +3,7 @@ Basic set of statistics
 """
 
 
-from es_core.es_helpers.es_search import BaseSearch
+from es_core.es_search import BaseSearch
 from es_core.utils import (
     execute_aggs,
     check_term_field

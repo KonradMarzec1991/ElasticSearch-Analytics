@@ -1,8 +1,8 @@
 from .transform_filters import transform_filter_names
-from es_core.es_helpers.es_filters import match_all, get_by_id
+from es_core.es_filters import match_all, get_by_id
 
 
-class Employee2:
+class Employee:
     def __init__(self, FirstName, LastName, Address, MaritalStatus, Gender,
                  Salary, Age, Interests, DateOfJoining, Designation):
         self.FirstName = FirstName
@@ -15,6 +15,13 @@ class Employee2:
         self.Interests = Interests
         self.DateOfJoining = DateOfJoining
         self.Designation = Designation
+
+    @property
+    def full_name(self):
+        return f'{self.FirstName} {self.LastName}'
+
+    def __str__(self):
+        return self.full_name
 
     @staticmethod
     def get_all():

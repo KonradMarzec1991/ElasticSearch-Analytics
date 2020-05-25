@@ -5,7 +5,7 @@ from elasticsearch_dsl.query import (
     Term,
     MatchAll
 )
-from es_core.es_helpers.es_search import BaseSearch
+from es_core.es_search import BaseSearch
 from es_core.utils import execute_query
 from django.conf import settings
 

@@ -3,7 +3,7 @@ Helper functions for filters and aggregations
 """
 
 from django.conf import settings
-from es_core.es_helpers.es_search import get_client
+from es_core.es_search import get_client
 
 
 allowed = ['Age', 'Designation', 'Gender', 'MaritalStatus', 'Salary']
