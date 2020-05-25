@@ -42,6 +42,3 @@ class BaseSearch:
         :return: setup search instance
         """
         return self.search().extra(size=0)
-
-
-

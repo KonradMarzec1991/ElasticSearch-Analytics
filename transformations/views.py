@@ -14,8 +14,8 @@ class EmployeeViewSet(viewsets.ViewSet):
         serializer = EmployeeSerializer(queryset, many=True)
         return Response(serializer.data)
 
-    # def retrieve(self, request, pk):
-    #     employee = Employee.es_object.es_get_by_pk(pk)
-    #     serializer = EmployeeSerializer(employee)
-    #     return Response(serializer.data)
+    def retrieve(self, request, pk):
+        employee = Employee.get_by_pk(pk)
+        serializer = EmployeeSerializer(employee)
+        return Response(serializer.data)
 

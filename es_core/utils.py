@@ -50,7 +50,6 @@ class ArgumentException(Exception):
     """
     Exception raised when arg not in allowed list
     """
-    pass
 
 
 def create_range_buckets(start, end, step):
@@ -62,7 +61,7 @@ def create_range_buckets(start, end, step):
     :return: list with given ranges
     """
     ranges = []
-    for v in range(start, end, step):
+    for _ in range(start, end, step):
         ranges.append(
             {'from': start, 'to': start + step}
         )
