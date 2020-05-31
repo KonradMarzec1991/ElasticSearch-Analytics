@@ -2,6 +2,9 @@ from rest_framework import serializers
 
 
 class EmployeeSerializer(serializers.Serializer):
+    """
+    Simple serializer for `Employee` class
+    """
 
     gender_options = (
         ('Female', 'Female'),
@@ -28,3 +31,12 @@ class EmployeeSerializer(serializers.Serializer):
         if value < 0:
             raise ValueError('Must be grater than 0')
         return value
+
+
+class Employee2Serializer(serializers.Serializer):
+    first_name = serializers.CharField(max_length=100)
+
+    def validate(self, attrs):
+        pass
+
+

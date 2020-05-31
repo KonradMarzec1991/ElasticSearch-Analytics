@@ -17,3 +17,8 @@ class EmployeeViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
 
+class FilterByNameViewSet(viewsets.ReadOnlyModelViewSet):
+
+    def list(self, request):
+        pass
+

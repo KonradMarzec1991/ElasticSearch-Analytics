@@ -1,7 +1,5 @@
-from django.db import models
-from .transforms import transform_filter_names
 from es_core.es_filters import match_all, get_by_id
-from .utils import LazyInit
+from .utils import LazyInit, transform_filter_names
 
 
 class Employee(LazyInit):
