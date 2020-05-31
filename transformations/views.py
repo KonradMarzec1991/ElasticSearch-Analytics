@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
 from transformations.models import Employee
-from .serializers import EmployeeSerializer
+from .serializers import EmployeeSerializer, Employee2Serializer
 
 
 class EmployeeViewSet(viewsets.ViewSet):
@@ -20,5 +20,7 @@ class EmployeeViewSet(viewsets.ViewSet):
 class FilterByNameViewSet(viewsets.ReadOnlyModelViewSet):
 
     def list(self, request):
-        pass
+        serializer = Employee2Serializer(data=self.request.query_params)
+        serializer.is_valid(raise_exception=True)
+        return Response(data=serializer.data, status=200)
 

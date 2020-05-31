@@ -17,11 +17,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from transformations.views import EmployeeViewSet
+from transformations.views import EmployeeViewSet, FilterByNameViewSet
 
 employee_router = routers.DefaultRouter()
-employee_router.register('employee', EmployeeViewSet, basename='employee')
-
+employee_router.register(
+    'employee',
+    EmployeeViewSet,
+    basename='employee'
+)
+employee_router.register(
+    'filter_by_name',
+    FilterByNameViewSet,
+    basename='filter_by_name'
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -1,4 +1,7 @@
 from rest_framework import serializers
+from .utils import transform_only
+
+from es_core.es_filters import filter_by_fn
 
 
 class EmployeeSerializer(serializers.Serializer):
@@ -35,8 +38,14 @@ class EmployeeSerializer(serializers.Serializer):
 
 class Employee2Serializer(serializers.Serializer):
     first_name = serializers.CharField(max_length=100)
+    result = serializers.ReadOnlyField()
 
     def validate(self, attrs):
-        pass
+        first_name = attrs.get('first_name')
+        attrs['result'] = transform_only(
+            filter_by_fn(first_name)
+        )
+        return super().validate(attrs)
 
-
+    class Meta:
+        fields = ('result', )

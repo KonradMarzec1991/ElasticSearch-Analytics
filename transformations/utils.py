@@ -1,6 +1,7 @@
 """
 Helper class and functions for transformations
 """
+from es_core.es_filters import filter_by_fn
 
 
 class LazyInit:
@@ -37,4 +38,12 @@ def transform_filter_names(es_input):
     result = []
     for emp in es_input:
         result.append(Employee(**emp['_source'].to_dict()))
+    return result
+
+
+def transform_only(es_input):
+    result = []
+    for emp in es_input:
+        emp = emp['_source'].to_dict()
+        result.append(emp)
     return result
