@@ -19,6 +19,7 @@ def get_by_id(emp_id):
     return qs.query(q)
 
 
+@execute_query
 def match_all():
     return BaseSearch().search().extra(size=settings.ES_DEFAULT_SIZE).query(
         MatchAll()

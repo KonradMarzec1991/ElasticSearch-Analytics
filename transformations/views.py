@@ -1,9 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
-
 from transformations.models import Employee
-
-
 from .serializers import EmployeeSerializer
 
 
@@ -18,4 +15,5 @@ class EmployeeViewSet(viewsets.ViewSet):
         employee = Employee.get_by_pk(pk)
         serializer = EmployeeSerializer(employee)
         return Response(serializer.data)
+
 
