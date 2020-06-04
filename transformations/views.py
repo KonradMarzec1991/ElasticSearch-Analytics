@@ -4,10 +4,12 @@ from .serializers import FirstNameSerializer, GeneralFilterSerializer
 
 
 def short_view(class_serializer):
+    """Short_view function overrides list method with serializer class"""
     def view(self, request):
+        """View function"""
         serializer = class_serializer(data=self.request.query_params)
         if serializer.is_valid():
-            return Response(serializer.data['result'], status=200)
+            return Response(serializer.validated_data['result'], status=200)
         return Response(serializer.errors, status=404)
     return view
 

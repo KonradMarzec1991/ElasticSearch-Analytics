@@ -1,7 +1,6 @@
 """
 Helper class and functions for transformations
 """
-from es_core.es_filters import filter_by_fn
 
 
 class LazyInit:
@@ -47,3 +46,14 @@ def transform_only(es_input):
         emp = emp['_source'].to_dict()
         result.append(emp)
     return result
+
+
+def add_to_kwargs(attrs):
+    output = dict()
+    for key in attrs.keys():
+        if '_' in key:
+            first, last = key.split('_')
+            output[f'{first.title()}{last.title()}'] = attrs.get(key)
+        else:
+            output[key.title()] = attrs.get(key)
+    return output

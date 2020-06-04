@@ -56,7 +56,11 @@ def general_filter(**kwargs):
     terms_list = []
     for key in kwargs.keys():
         if key in FIELDS and kwargs[key]:
-            content = {key: kwargs[key]}
-            terms_list.append(Q('match', **content))
+            if key in ['FirstName', 'LastName', 'Age']:
+                content = {key: kwargs[key]}
+                terms_list.append(Match(**content))
+            else:
+                content = {f'{key}.keyword': {'value': kwargs[key]}}
+                terms_list.append(Q('term', **content))
     q = Bool(filter=terms_list)
     return qs.query(q)
