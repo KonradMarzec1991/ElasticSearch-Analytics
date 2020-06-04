@@ -1,7 +1,16 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
 from transformations.models import Employee
-from .serializers import EmployeeSerializer, Employee2Serializer
+from .serializers import FirstNameSerializer
+
+
+def short_view(class_serializer):
+    def view(self, request):
+        serializer = class_serializer(data=self.request.query_params)
+        if serializer.is_valid():
+            return Response(serializer.data['result'], status=200)
+        return Response(serializer.errors, status=404)
+    return view
 
 
 class EmployeeViewSet(viewsets.ViewSet):
@@ -17,10 +26,7 @@ class EmployeeViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
 
-class FilterByNameViewSet(viewsets.ReadOnlyModelViewSet):
-
-    def list(self, request):
-        serializer = Employee2Serializer(data=self.request.query_params)
-        serializer.is_valid(raise_exception=True)
-        return Response(data=serializer.data, status=200)
+class FilterByNameViewSet(viewsets.ViewSet):
+    """Viewset filters by first_name"""
+    list = short_view(FirstNameSerializer)
 
