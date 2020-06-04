@@ -3,13 +3,16 @@ from elasticsearch_dsl.query import (
     Bool,
     Range,
     Term,
-    MatchAll
+    MatchAll, Q
 )
 
 
 from es_core.es_search import BaseSearch
 from es_core.utils import execute_query
 from django.conf import settings
+
+FIELDS = ['FirstName', 'LastName', 'MaritalStatus', 'Gender', 'Salary', 'Age',
+          'Interests', 'DateOfJoining', 'Designation']
 
 
 @execute_query
@@ -44,4 +47,16 @@ def filter_by_ln(last_name):
 def filter_by_age(age: int):
     qs = BaseSearch().search()
     q = Bool(Range('greater_than', gte=age))
+    return qs.query(q)
+
+
+@execute_query
+def general_filter(**kwargs):
+    qs = BaseSearch().search()
+    terms_list = []
+    for key in kwargs.keys():
+        if key in FIELDS and kwargs[key]:
+            content = {key: kwargs[key]}
+            terms_list.append(Q('match', **content))
+    q = Bool(filter=terms_list)
     return qs.query(q)

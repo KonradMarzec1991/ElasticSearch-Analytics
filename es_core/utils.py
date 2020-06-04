@@ -15,8 +15,8 @@ def execute_query(func):
     :param func: search instance
     :return: dict results
     """
-    def wrapper(*args):
-        base_search = func(*args)
+    def wrapper(*args, **kwargs):
+        base_search = func(*args, **kwargs)
         return base_search.execute().hits.hits
     return wrapper
 
