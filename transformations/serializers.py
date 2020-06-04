@@ -1,3 +1,8 @@
+"""
+Serializes handle non-model objects
+"""
+
+
 from rest_framework import serializers
 from .utils import transform_only, add_to_kwargs
 
