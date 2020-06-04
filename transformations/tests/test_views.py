@@ -1,5 +1,6 @@
 from rest_framework.test import APIClient
 from transformations.views import GeneralFilterViewSet
+from .conftest import Error
 
 
 class TestGeneralFilteViewSet:
@@ -8,5 +9,4 @@ class TestGeneralFilteViewSet:
         client = APIClient()
         response = client.get('/general/?gender=XYZT')
         assert response.status_code == 404
-        print(response.data['gender'][0])
-        assert 1 == 2
+        assert response.data['gender'][0] == Error.GENDER_ERROR.value
