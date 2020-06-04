@@ -33,22 +33,26 @@ class GeneralFilterSerializer(serializers.Serializer):
     designation = serializers.CharField(max_length=50, default=None)
 
     def validate(self, attrs):
+        """Main validation method - adds result attr"""
         attrs['result'] = transform_only(
             general_filter(**add_to_kwargs(attrs))
         )
         return super().validate(attrs)
 
     def validate_age(self, age):
-        if age is not None and age < 0:
+        """Validates if age is zero or less"""
+        if age is not None and age <= 0:
             raise serializers.ValidationError('Age must greater than 0')
         return age
 
     def validate_gender(self, gender):
+        """Validates if gender is proper word"""
         if gender is not None and gender not in ('Female', 'Male'):
             raise serializers.ValidationError('Gender must be female or male')
         return gender
 
     def validate_martial_status(self, status):
+        """Validates status of employee"""
         if status is not None and status not in ('Unmarried', 'Married'):
             raise serializers.ValidationError('Unmarried or Married allowed')
         return status
