@@ -1,0 +1,44 @@
+"mappings": {
+  "properties" : {
+    "Address" : {
+      "type" : "text"
+    },
+    "Age" : {
+      "type" : "integer"
+    },
+    "DateOfJoining" : {
+      "type" : "date"
+    },
+    "Designation" : {
+      "type" : "text",
+      "fields" : {
+        "keyword" : {
+          "type" : "keyword"
+        }
+      }
+    },
+    "FirstName" : {
+      "type" : "text"
+    },
+    "Gender" : {
+      "type" : "keyword"
+    },
+    "Interests" : {
+      "type" : "text",
+      "fields" : {
+        "keyword" : {
+          "type" : "keyword"
+        }
+      }
+    },
+    "LastName" : {
+      "type" : "text"
+    },
+    "MaritalStatus" : {
+      "type" : "keyword"
+    },
+    "Salary" : {
+      "type" : "long"
+    }
+  }
+}
