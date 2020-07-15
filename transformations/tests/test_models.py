@@ -1,5 +1,3 @@
-
-
 class TestEmployeeModel:
 
     def test_model_attrs(self, get_employee):
