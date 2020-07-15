@@ -13,11 +13,9 @@ import pandas as pd
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .serializers import FirstNameSerializer, GeneralFilterSerializer
-
 from es_core.es_filters import filter_by_age
 from .es_to_excel import normalize_es_output
-
+from .serializers import FirstNameSerializer, GeneralFilterSerializer
 
 EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 
@@ -39,6 +37,7 @@ class FilterByNameViewSet(viewsets.ViewSet):
 
     @action(detail=False)
     def export_to_excel(self, request):
+        """Action exporting to Excel file retireve from ElasticSearch"""
         es_retrieve = filter_by_age(50)
         df = normalize_es_output(es_retrieve)
 
@@ -58,4 +57,3 @@ class FilterByNameViewSet(viewsets.ViewSet):
 class GeneralFilterViewSet(viewsets.ViewSet):
     """Viewset filters by (multiple) employee attrs"""
     list = short_view(GeneralFilterSerializer)
-
