@@ -1,3 +1,6 @@
+"""
+Basic ElasticSearch filters
+"""
 from elasticsearch_dsl.query import (
     Match,
     Bool,
@@ -66,6 +69,11 @@ def filter_by_age(age: int):
 
 @execute_query
 def general_filter(**kwargs):
+    """
+    General filter uses kwargs to filter out query
+    :param kwargs: names of columns in ElasticSearch - filters
+    :return: query with filters
+    """
     qs = BaseSearch().search()
     terms_list = []
     for key in kwargs.keys():

@@ -40,6 +40,7 @@ def check_term_field(func):
     :return: raise Exception if arg is invalid else returns function
     """
     def wrapper(arg):
+        """Decorator wrapper"""
         if arg not in allowed:
             raise ArgumentException
         return func(arg)

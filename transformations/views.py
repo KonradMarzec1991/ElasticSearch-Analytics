@@ -1,4 +1,4 @@
-# pylint: disable=no-self-use,unused-argument
+# pylint: disable=no-self-use,unused-argument,abstract-class-instantiated
 """
 ElasticSearch Viewsets
 """
