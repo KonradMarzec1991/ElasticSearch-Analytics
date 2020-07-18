@@ -1,12 +1,11 @@
+# pylint: disable=abstract-method,no-self-use
 """
 Serializes handle non-model objects
 """
-
-
 from rest_framework import serializers
-from .utils import transform_only, add_to_kwargs
-
 from es_core.es_filters import filter_by_fn, general_filter
+
+from .utils import transform_only, add_to_kwargs
 
 
 class FirstNameSerializer(serializers.Serializer):
@@ -56,5 +55,3 @@ class GeneralFilterSerializer(serializers.Serializer):
         if status is not None and status not in ('Unmarried', 'Married'):
             raise serializers.ValidationError('Unmarried or Married allowed')
         return status
-
-

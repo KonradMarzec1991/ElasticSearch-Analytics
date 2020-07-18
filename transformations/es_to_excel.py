@@ -25,6 +25,13 @@ pd.core.frame.DataFrame.drop_suffix = drop_suffix
 
 
 def normalize_es_output(es_output):
+    """
+    Normalizes ElasticSearch data for pandas usage
+    - formats to appropriate types
+    - removes unnecessary columns
+    :param es_output: ElasticSearch data
+    :return: formatted dataFrame
+    """
     df = json_normalize(es_output)
     df.drop(columns_to_drop, inplace=True, axis='columns')
     df.drop_suffix('_source.')
@@ -42,5 +49,3 @@ def normalize_es_output(es_output):
 
     df.sort_values('Salary', inplace=True)
     return df
-
-
